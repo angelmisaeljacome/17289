@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
 
-
+@CrossOrigin(origins = "*")
 @RestController //paradigna, consiste en hacer peticiones http, a traves de los verbos
 public class SaludarControlador{
 
@@ -86,11 +87,23 @@ public class SaludarControlador{
             <li>
                 <a href='/obtenerSaludador'>/obtenerSaludador</a>
             </li>
+            <li>
+                <a href='/getQuery'>/getQuery?nombre=pedro&paterno=marquez</a>
+            </li>
+            <li>
+                <a href='/getQuery2'>/getQuery2?nombre=pedro[&paterno=marquez]</a>
+            </li>
         </ul>
         """;
         
     }
     
+    @PostMapping("/crearSaludador") 
+    public void crearSaludador(@RequestBody Saludador nombre){
+        System.out.println("post:" + nombre);
+        saludador = new Saludador(nombre.getContenido());
+    }
+
 
     @PostMapping("/crearSaludadorParametro/{nombreX}") 
     public void crearSaludadorParametro(@PathVariable("nombreX") String nombreX){

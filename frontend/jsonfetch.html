@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json/fetch</title>
+</head>
+
+<body>
+    <h1>json/fetch</h1>
+
+    <button onclick="llamar()">Enviar</button> <br>
+
+    <button onclick="llamarHttp()">Enviar HTTP REQUEST</button> <br>
+
+    <button onclick="llamar2()">Enviar HTTP REQUEST de Rojano</button> <br>
+
+    <button onclick="llamar3()">Enviar Fetch async/await</button> <br>
+
+    <button onclick="llamar4()">Fetch blob</button> <br>
+
+    <img src="" alt="" id="img1"> <br>
+
+    <button onclick="llamar5()">???b</button> <br>
+
+
+    <script>
+        function llamar() {
+            url = "https://jsonplaceholder.typicode.com/users/1"
+            parametros = ""
+            fetch(url)
+                .then(respuesta => {
+                    usuario = respuesta.json();
+                    console.log(usuario)
+                    return usuario;
+                })
+                .then(datos => {
+                    console.log(datos);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        function llamarHttp() {
+            url = "https://jsonplaceholder.typicode.com/users/1"
+
+            const peticion = new XMLHttpRequest();
+
+            peticion.open("GET", url);
+
+            peticion.onload = function () {
+                if (peticion.status === 200) {
+                    const resultado = JSON.parse(peticion.responseText);
+
+                    console.log(resultado);
+                } else {
+                    console.log("Error al consultar las historias");
+                }
+            };
+
+            peticion.onerror = function () {
+                console.log("Error de conexión con el servidor");
+            };
+
+            peticion.send();
+        }
+
+        function llamar2() {
+            url = "https://jsonplaceholder.typicode.com/users/1"
+            xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                usuario = xhttp.response;
+                console.log(JSON.parse(usuario));
+            }
+            xhttp.open("GET", url);
+            xhttp.send();
+        }
+
+        function llamar3() {
+            url = "https://jsonplaceholder.typicode.com/users/1"
+            parametros = ""
+            fetch(url)
+                .then(async respuesta => {
+                    console.log("respuesta");
+                    console.log(respuesta);
+                    usuario = await respuesta.json();
+                    console.log(usuario)
+                    return usuario;
+                })
+                .then(datos => {
+                    console.log(datos);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+        }
+
+        function llamar4() {
+            url = "https://picsum.photos/id/1/200/200"
+            parametros = ""
+            fetch(url)
+                .then(
+                    respuesta => {
+                        console.log(respuesta)
+                        r = respuesta.blob()
+                        return r;
+                    })
+                .then(datos => {
+                    console.log(datos);
+                    imagen_link = URL.createObjectURL(datos);
+                    document.getElementById("img1").src = imagen_link;
+                    console.log(imagen)
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        
+        function llamar5(){
+            url = ""
+            fetch()
+            .then()
+            .then()
+            .catch()
+
+        }
+    
+    
+    
+    </script>
+</body>
+
+</html>
